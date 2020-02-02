@@ -1,0 +1,24 @@
+@mixin width() {
+  $width: (10, 20, 25, 30, 33, 40, 50, 60, 66, 70, 75, 80, 90, 100);
+  @each $w in $width {
+    &#{$w} {
+      width: #{$w + "%"};
+    }
+  }
+}
+
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+
+  & {
+    zoom: 1;
+  }
+}

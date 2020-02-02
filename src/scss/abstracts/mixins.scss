@@ -1,0 +1,102 @@
+@use 'variables' as *;
+@use 'functions' as *;
+
+@mixin breakpoint($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @if $breakpoint== "mobile" {
+      @content;
+    } @else {
+      @media (min-width: map-get-r($breakpoints, $breakpoint, "value")) {
+        @content;
+      }
+    }
+  } @else {
+    @warn "The following breakpoint '#{$breakpoint}' doesn't exists. "+"Please make sure it is defined in `$breakpoints` map. 'variables.scss'";
+  }
+}
+
+@mixin container() {
+  width: 100%;
+  padding-right: ($gutter / 2);
+  padding-left: ($gutter / 2);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@mixin container-breakpoints($max-widths: $container-max-widths, $breakpoints: $breakpoints) {
+  @each $breakpoint, $container-max-width in $max-widths {
+    @include breakpoint($breakpoint) {
+      max-width: $container-max-width;
+    }
+  }
+}
+
+%col {
+  float: left;
+  position: relative;
+  min-height: 1px;
+  padding: 0 $gutter * 0.5;
+}
+@mixin columns() {
+  @for $i from 1 through $columns {
+    &-#{$i},
+    &s-#{$i},
+    &m-#{$i},
+    &l-#{$i},
+    &xl-#{$i} {
+      @extend %col;
+    }
+  }
+}
+
+@mixin columns-breakpoints($breakpoints: $breakpoints) {
+  @each $key, $breakpoint in $breakpoints {
+    $col-suffix: map-get-r($breakpoints, $key, "col-suffix");
+    @include breakpoint($key) {
+      @for $i from 1 through $columns {
+        &#{$col-suffix}-#{$i} {
+          width: $i/$columns * 100%;
+        }
+      }
+      &#{$col-suffix}-center {
+        float: none;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+@mixin columns-visibility($visibility) {
+  @each $key, $breakpoint in $breakpoints {
+    $col-suffix: map-get-r($breakpoints, $key, "col-suffix");
+    @include breakpoint($key) {
+      @if ($visibility == "hidden") {
+        &#{$col-suffix} {
+          display: none;
+        }
+      } @else {
+        @if $key != "base" {
+          @each $key2, $breakpoint in $breakpoints {
+            @if $key2 != $key {
+              &-#{$key2} {
+                display: none;
+              }
+            } @else {
+              &-#{$key2} {
+                display: block;
+              }
+            }
+          }
+        } @else {
+          @each $key2, $breakpoint in $breakpoints {
+            @if $key2 != $key {
+              &-#{$key2} {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

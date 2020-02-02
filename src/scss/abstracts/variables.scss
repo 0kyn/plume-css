@@ -1,0 +1,38 @@
+$font-main: "Verdana", sans-serif;
+
+$c-white: #fafafa;
+$c-text: #4c4b4b;
+$c-bleu: #136d89;
+
+$breakpoints: (
+  "mobile": (
+    "col-suffix": "",
+    "value": null
+  ),
+  "s": (
+    "col-suffix": "-s",
+    "value": 576px
+  ),
+  "m": (
+    "col-suffix": "-m",
+    "value": 768px
+  ),
+  "l": (
+    "col-suffix": "-l",
+    "value": 992px
+  ),
+  "xl": (
+    "col-suffix": "-xl",
+    "value": 1200px
+  )
+) !default;
+
+$container-max-widths: (
+  "s": 540px,
+  "m": 720px,
+  "l": 960px,
+  "xl": 1140px
+) !default;
+
+$columns: 12 !default;
+$gutter: 20px !default;

@@ -1,0 +1,53 @@
+@use '../abstracts/helpers';
+
+/* display */
+.d-n {
+  display: none;
+}
+.d-b {
+  display: block;
+}
+.d-ib {
+  display: inline-block;
+}
+.d-i {
+  display: inline;
+}
+
+/* position */
+.pos-r {
+  position: relative;
+}
+.pos-a {
+  position: absolute;
+}
+.pos-f {
+  position: fixed;
+}
+
+/* float */
+.fl-l {
+  float: left;
+}
+.fl-r {
+  float: right;
+}
+.clear {
+  @include helpers.clearfix();
+}
+
+/* text-align */
+.ta-c {
+  text-align: center;
+}
+.ta-l {
+  text-align: left;
+}
+.ta-r {
+  text-align: right;
+}
+
+/* width */
+.w- {
+  @include helpers.width();
+}
